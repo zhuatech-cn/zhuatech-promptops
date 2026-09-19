@@ -3,12 +3,21 @@ package cn.zhuatech.promptops.service;
 import cn.zhuatech.promptops.model.OperationRecord;import cn.zhuatech.promptops.repository.OperationRecordRepository;
 import jakarta.validation.constraints.DecimalMax;import jakarta.validation.constraints.DecimalMin;import jakarta.validation.constraints.NotBlank;import jakarta.validation.constraints.NotNull;import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;import java.util.*;import java.util.regex.*;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 @Service
 public class PromptOpsService{
  private static final Pattern VARIABLE=Pattern.compile("\\{\\{([a-zA-Z][a-zA-Z0-9_]*)}}");
  private static final List<String> INJECTION=List.of("ignore previous","system prompt","developer message","忽略以上","泄露系统","越权执行");
  private final OperationRecordRepository repository;
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  public PromptOpsService(OperationRecordRepository repository){this.repository=repository;}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Transactional
  public Evaluation evaluate(ReleaseRequest r,String actor){
   var existing=repository.findByRequestId(r.requestId());
@@ -33,12 +42,27 @@ public class PromptOpsService{
   var saved=repository.save(new OperationRecord(r.requestId(),"PROMPT_RELEASE",decision.name(),risk.name(),"template="+r.templateName()+", version="+r.version()+", blockers="+blockers.size(),actor));
   return new Evaluation(saved.getId(),r.requestId(),decision,risk,route,List.copyOf(blockers),List.copyOf(warnings),decision==Decision.RELEASE?rendered:"",false);
  }
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Transactional(readOnly=true)public List<OperationRecord> audits(){return repository.findTop100ByOrderByCreatedAtDesc();}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  public record ReleaseRequest(@NotBlank String requestId,@NotBlank String templateName,@NotBlank String version,@NotBlank String templateText,
   @NotNull Map<String,String> variables,@NotNull List<@NotBlank String> requiredVariables,@DecimalMin("0.0")@DecimalMax("1.0")double qualityScore,
   @DecimalMin("0.0")@DecimalMax("1.0")double safetyScore,@DecimalMin("0.0")@DecimalMax("1.0")double regressionPassRate,
   @NotNull@DecimalMin("0.0")BigDecimal estimatedCostPer1kTokens,@NotNull@DecimalMin("0.0")BigDecimal maxCostPer1kTokens,
   boolean approved,@NotBlank String ownerId,@NotBlank String approverId){}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  public record Evaluation(Long auditId,String requestId,Decision decision,RiskLevel riskLevel,String approvalRoute,List<String> blockers,List<String>warnings,String renderedPrompt,boolean duplicate){}
- public enum Decision{RELEASE,BLOCKED}public enum RiskLevel{LOW,MEDIUM,HIGH}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
+ public enum Decision{RELEASE,BLOCKED}/**
+                                       * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+                                       */
+public enum RiskLevel{LOW,MEDIUM,HIGH}
 }

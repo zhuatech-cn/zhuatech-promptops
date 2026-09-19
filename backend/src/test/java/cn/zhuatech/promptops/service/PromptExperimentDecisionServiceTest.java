@@ -1,7 +1,22 @@
 /* Copyright 2026 上海如静知华信息科技有限公司 · https://www.zhuatech.cn/ */
 package cn.zhuatech.promptops.service;import org.junit.jupiter.api.Test;import java.math.BigDecimal;import static org.assertj.core.api.Assertions.assertThat;
+/**
+ * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+ */
 class PromptExperimentDecisionServiceTest{private final PromptExperimentDecisionService s=new PromptExperimentDecisionService();
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void promotesBetterSafeVariant(){var r=s.decide(req(1000,1000,"0.80","0.88","0.01","0.01","0.99",true,true));assertThat(r.decision()).isEqualTo(PromptExperimentDecisionService.Decision.PROMOTE);}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void continuesUnderpoweredExperiment(){var r=s.decide(req(20,20,"0.80","0.90","0.01","0.01","0.80",true,true));assertThat(r.decision()).isEqualTo(PromptExperimentDecisionService.Decision.CONTINUE);}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  @Test void rollsBackSafetyRegression(){var r=s.decide(req(1000,1000,"0.80","0.90","0.01","0.08","0.99",true,true));assertThat(r.decision()).isEqualTo(PromptExperimentDecisionService.Decision.ROLLBACK);}
+ /**
+  * 商业授权或定制开发请微信添加微信号zhuatech或zhuatech2进行咨询。
+  */
  private PromptExperimentDecisionService.Request req(int c,int v,String cs,String vs,String ci,String vi,String confidence,boolean guard,boolean approved){return new PromptExperimentDecisionService.Request("E",c,v,100,new BigDecimal(cs),new BigDecimal(vs),new BigDecimal(ci),new BigDecimal(vi),new BigDecimal("0.02"),new BigDecimal(confidence),new BigDecimal("0.95"),new BigDecimal("0.03"),800,1000,new BigDecimal("0.5"),new BigDecimal("1"),guard,approved);}}
