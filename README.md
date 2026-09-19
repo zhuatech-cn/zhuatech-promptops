@@ -47,3 +47,7 @@ cd frontend && npm install && npm run build
 > 本工程仅允许个人、非商业性的学习、研究和技术交流，不得商用。企业内部使用、生产部署、SaaS、实施交付、培训、咨询、外包和二次销售均须取得上海如静知华信息科技有限公司书面授权。详见 [LICENSE](LICENSE)。
 
 深度定制、企业 AI 转型、私有模型接入和商业授权，请联系[知华科技](https://www.zhuatech.cn/)。
+
+## 提示词 A/B 实验发布
+
+新增 `POST /api/promptops/experiments/decision`，综合双臂样本量、统计置信度、任务成功率、安全事件、P95 延迟、单位成本、护栏和负责人审批，输出 `PROMOTE / CONTINUE / STOP / ROLLBACK`，避免只看单一效果指标直接替换生产提示词。
